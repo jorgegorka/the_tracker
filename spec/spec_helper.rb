@@ -2,7 +2,7 @@ require 'the_tracker'
 
 class TheTracker::Tracker
   def self.reset
-    self.instance.instance_variable_set(:@trackers, [])
+    self.instance.instance_variable_set(:@trackers, {})
   end
 end
 

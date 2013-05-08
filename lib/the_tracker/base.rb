@@ -8,6 +8,11 @@ module TheTracker
       @active = true
     end
 
+    # public name
+    def name
+      raise NotImplementedError
+    end
+
     # code that should appear on the header section
     def header
       raise NotImplementedError

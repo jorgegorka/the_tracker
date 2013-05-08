@@ -8,12 +8,14 @@ module TheTracker
       super()
     end
 
+    def name
+      :adform
+    end
+
     def header
       return if !active
 <<-EOF
       <!-- Adform Tracking Code BEGIN -->
-      <!-- Point: "Sage One Registro" (Sage One/) -->
-      <!-- URL:  https://app.es.sageone.com/signup -->
       <script type="text/javascript">
       var _adftrack = {
       pm: #{@pm},

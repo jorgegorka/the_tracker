@@ -4,6 +4,10 @@ class GAnalitics < TheTracker::Base
   def header
     'some tracking code'
   end
+
+  def name
+    :ganalytics
+  end
 end
 
 class ViewClass

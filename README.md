@@ -20,8 +20,17 @@ Or install it yourself as:
 
 ## Usage
 
-Add a config file with your favorite tracking codes and start tracking users
+`
+TheTracker::Tracker.config do |tmf|
+  tmf.add TheTracker::AdForm.new(:id => 123, :pm => 456)
+end
+`
 
+
+## Author
+ Created by Jorge Alvarez
+ @jorgealvarez
+ http://www.alvareznavarro.es
 
 ## Contributing
 

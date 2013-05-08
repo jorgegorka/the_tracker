@@ -8,6 +8,12 @@ describe TheTracker::Base do
       end
     end
 
+    describe :name do
+      it 'should raise a NotImplementedError' do
+        expect { subject.name }.to raise_error(NotImplementedError)
+      end
+    end
+
     describe :active do
       it 'should be active by default' do
         subject.active.should be
