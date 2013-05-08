@@ -1,6 +1,8 @@
 # TheTracker
 
-TODO: Write a gem description
+Tracker Motherfucker
+
+Yes, I know tracking people sucks, but that's the way it goes
 
 ## Installation
 
@@ -18,7 +20,8 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+Add a config file with your favorite tracking codes and start tracking users
+
 
 ## Contributing
 
