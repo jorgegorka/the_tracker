@@ -22,7 +22,9 @@ Or install it yourself as:
 
 `
 TheTracker::Tracker.config do |tmf|
+
   tmf.add TheTracker::AdForm.new(:id => 123, :pm => 456)
+
 end
 `
 
