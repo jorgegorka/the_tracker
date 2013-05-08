@@ -20,14 +20,31 @@ Or install it yourself as:
 
 ## Usage
 
-`
-TheTracker::Tracker.config do |tmf|
+Create a file in config/initializers/tracker.rb
 
-  tmf.add TheTracker::AdForm.new(:id => 123, :pm => 456)
+Add all the trackers you need
 
-end
-`
+    TheTracker::Tracker.config do |tmf|
+      tmf.add TheTracker::AdForm.new(:id => 123, :pm => 456)
+      tmf.add TheTracker::GAnalytics.new(:id => 'UA-1234123-99')
+    end
 
+In your views add
+
+    <header>
+      <%= header_tracking_code.html_safe %>
+    </header>
+
+And that's all the tracking code will be added automatically
+
+If you want to track only certain pages you can do it
+
+For instance, this example will not show the Google Analytics code if `some_condition` evaluates to true
+
+    <header>
+      <% TheTracker::Tracker.instance.trackers[:ganalytics].active = some_condition %>
+      <%= header_tracking_code.html_safe %>
+    </header>
 
 ## Author
  Created by Jorge Alvarez
