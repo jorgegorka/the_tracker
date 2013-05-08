@@ -48,8 +48,12 @@ For instance, this example will not show the Google Analytics code if `some_cond
 
 ## Author
  Created by Jorge Alvarez
+
  @jorgealvarez
+
  http://www.alvareznavarro.es
+
+ I would like to thanks to the [Sage One](http://www.sageone.es) team for their contribution in the developing of this gem
 
 ## Contributing
 
