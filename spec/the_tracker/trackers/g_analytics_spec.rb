@@ -25,7 +25,7 @@ describe TheTracker::Trackers::GAnalytics do
     describe :add_custom_var do
       it 'should add a custom var' do
         subject.add_custom_var(1, 'user', '111', 1)
-        subject.header.should include("_gaq.push(['_setCustomVar', 1, 'user', '111', 1]);")
+        subject.header.should include("_gaq.push(['_setCustomVar', '1', 'user', '111', '1']);")
       end
     end
 
@@ -44,6 +44,26 @@ describe TheTracker::Trackers::GAnalytics do
       describe :add_transaction_item do
         it 'should add the transaction_item tag' do
           subject.header.should include("_gaq.push(['_addItem'")
+        end
+      end
+
+      it 'should add the tracker of the transaction' do
+        subject.header.should include("_gaq.push(['_trackTrans']);")
+      end
+
+      context 'if transaction id is nil' do
+        before :each do
+          @default = described_class.new(:id => 'UA-111-11')
+        end
+
+        it 'should add default timestamp as transaction id ' do
+          @default.add_transaction('0', 'Acme Clothing', '11.99', '1.29', '5', 'San Jose', 'California', 'USA')
+          @default.header.should =~ /_gaq.push\(\['_addTrans', '\d{1,}'/
+        end
+
+        it 'should add default timestamp as transaction id ' do
+          @default.add_transaction(nil, 'Acme Clothing', '11.99', '1.29', '5', 'San Jose', 'California', 'USA')
+          @default.header.should =~ /_gaq.push\(\['_addTrans', '\d{1,}'/
         end
       end
     end

@@ -12,7 +12,8 @@ module TheTracker
         :ganalytics
       end
 
-      def add_transaction(tid=Time.now.to_i, store='', total=0, tax=0, shipping=0, city='', state='', country='')
+      def add_transaction(tid=0, store='', total=0, tax=0, shipping=0, city='', state='', country='')
+        tid = Time.now.to_i if (tid.nil?)
         @transaction = Transaction.new(tid, store, total, tax, shipping, city, state, country)
       end
 
@@ -57,16 +58,17 @@ module TheTracker
 
       def set_custom_vars
         custom_vars.map do | index, cv |
-          "_gaq.push(['_setCustomVar', #{index}, '#{cv[0]}', '#{cv[1]}', #{cv[2]}]);"
+          "_gaq.push(['_setCustomVar', '#{index}', '#{cv[0]}', '#{cv[1]}', '#{cv[2]}']);"
         end.join('\n')
       end
 
       def set_transactions
         return '' unless @transaction
-        conf = "_gaq.push(['_addTrans', '#{@transaction.id}', '#{@transaction.store}', '#{@transaction.total}', '#{@transaction.tax}', '#{@transaction.shipping}', '#{@transaction.city}', '#{@transaction.state}', '#{@transaction.country}', ]);"
+        conf = "_gaq.push(['_addTrans', '#{@transaction.id}', '#{@transaction.store}', '#{@transaction.total}', '#{@transaction.tax}', '#{@transaction.shipping}', '#{@transaction.city}', '#{@transaction.state}', '#{@transaction.country}', ]);\n"
         conf << @transaction.items.map do |item|
           "_gaq.push(['_addItem', '#{@transaction.id}', '#{item.sku}', '#{item.product}', '#{item.category}', '#{item.price}', '#{item.quantity}']);"
         end.join('\n')
+        conf << "_gaq.push(['_trackTrans']);"
         conf
       end
 
