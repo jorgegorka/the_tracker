@@ -13,5 +13,11 @@ describe TheTracker::Trackers::Uservoice do
         subject.header.should include('"tab_label":"Say Hi!"')
       end
     end
+
+    describe :name do
+      it 'should return uservoice' do
+        subject.name.should == :uservoice
+      end
+    end
   end
 end
