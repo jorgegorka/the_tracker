@@ -25,8 +25,8 @@ Create a file in config/initializers/tracker.rb
 Add all the trackers you need
 
     TheTracker::Tracker.config do |tmf|
-      tmf.add TheTracker::AdForm.new(:id => 123, :pm => 456)
-      tmf.add TheTracker::GAnalytics.new(:id => 'UA-1234123-99')
+      tmf.add TheTracker::Trackers::Uservoice.new(:forum_id => 123, :tab_label => 'Say Hi!')
+      tmf.add TheTracker::Trackers::GAnalytics.new(:id => 'UA-1234123-99')
     end
 
 In your views add
@@ -46,7 +46,32 @@ For instance, this example will not show the Google Analytics code if `some_cond
       <%= header_tracking_code.html_safe %>
     </header>
 
+## Available Trackers
+
+### AdFrom
+
+      TheTracker::Trackers::AdForm.new(:pm => 123, :id => 444)
+
+### Uservoice
+
+      TheTracker::Trackers::Uservoice.new(
+        mode: 'full',
+        primary_color: '#ff0000',
+        link_color: '#007dbf',
+        default_mode: 'support',
+        forum_id: 111,
+        tab_label: 'Say Hi!',
+        tab_color: '#cc0000',
+        tab_position: 'middle-left',
+        tab_inverted: true
+      )
+
+### Google Analytics
+
+      TheTracker::Trackers::GAnalytics.new(:id => 'UA-111111-11')
+
 ## Author
+
  Created by Jorge Alvarez
 
  @jorgealvarez
