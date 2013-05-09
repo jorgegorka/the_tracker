@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe TheTracker::AdForm do
+describe TheTracker::Trackers::AdForm do
   subject { described_class.new(:pm => '111666', :id => '333555') }
   describe :methods do
     describe :header do

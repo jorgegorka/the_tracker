@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-class GAnalitics < TheTracker::Base
+class GAnalitics < TheTracker::Trackers::Base
   def header
     'some tracking code'
   end

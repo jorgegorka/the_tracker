@@ -1,20 +1,21 @@
 module TheTracker
-  class AdForm < Base
+  module Trackers
+    class AdForm < Base
 
-    # AdForm info pm and id
-    def initialize(options)
-      @pm = options[:pm]
-      @id = options[:id]
-      super()
-    end
+      # AdForm info pm and id
+      def initialize(options)
+        @pm = options[:pm]
+        @id = options[:id]
+        super()
+      end
 
-    def name
-      :adform
-    end
+      def name
+        :adform
+      end
 
-    def header
-      return if !active
-<<-EOF
+      def header
+        return if !active
+        <<-EOF
       <!-- Adform Tracking Code BEGIN -->
       <script type="text/javascript">
       var _adftrack = {
@@ -29,7 +30,8 @@ module TheTracker
       </p>
       </noscript>
       <!-- Adform Tracking Code END -->
-EOF
+      EOF
+      end
     end
   end
 end

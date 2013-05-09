@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe TheTracker::Base do
+describe TheTracker::Trackers::Base do
   describe :methods do
     describe :header do
       it 'should raise a NotImplementedError' do
