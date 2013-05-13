@@ -56,14 +56,14 @@ describe TheTracker::Trackers::GAnalytics do
           @default = described_class.new(:id => 'UA-111-11')
         end
 
-        it 'should add default timestamp as transaction id ' do
-          @default.add_transaction('0', 'Acme Clothing', '11.99', '1.29', '5', 'San Jose', 'California', 'USA')
-          @default.header.should =~ /_gaq.push\(\['_addTrans', '\d{1,}'/
+        it 'should add default timestamp as transaction id when zero' do
+          @default.add_transaction(0, 'Acme Clothing', '11.99', '1.29', '5', 'San Jose', 'California', 'USA')
+          @default.header.should =~ /_gaq.push\(\['_addTrans', '\d{2,}'/
         end
 
-        it 'should add default timestamp as transaction id ' do
+        it 'should add default timestamp as transaction id when nil' do
           @default.add_transaction(nil, 'Acme Clothing', '11.99', '1.29', '5', 'San Jose', 'California', 'USA')
-          @default.header.should =~ /_gaq.push\(\['_addTrans', '\d{1,}'/
+          @default.header.should =~ /_gaq.push\(\['_addTrans', '\d{2,}'/
         end
       end
     end

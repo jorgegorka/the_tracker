@@ -13,7 +13,7 @@ module TheTracker
       end
 
       def add_transaction(tid=0, store='', total=0, tax=0, shipping=0, city='', state='', country='')
-        tid = Time.now.to_i if (tid.nil?)
+        tid = Time.now.to_i if (tid.nil?) or (tid.to_s == '0')
         @transaction = Transaction.new(tid, store, total, tax, shipping, city, state, country)
       end
 
@@ -64,7 +64,7 @@ module TheTracker
 
       def set_transactions
         return '' unless @transaction
-        conf = "_gaq.push(['_addTrans', '#{@transaction.id}', '#{@transaction.store}', '#{@transaction.total}', '#{@transaction.tax}', '#{@transaction.shipping}', '#{@transaction.city}', '#{@transaction.state}', '#{@transaction.country}', ]);\n"
+        conf = "_gaq.push(['_addTrans', '#{@transaction.id}', '#{@transaction.store}', '#{@transaction.total}', '#{@transaction.tax}', '#{@transaction.shipping}', '#{@transaction.city}', '#{@transaction.state}', '#{@transaction.country}']);\n"
         conf << @transaction.items.map do |item|
           "_gaq.push(['_addItem', '#{@transaction.id}', '#{item.sku}', '#{item.product}', '#{item.category}', '#{item.price}', '#{item.quantity}']);"
         end.join('\n')
