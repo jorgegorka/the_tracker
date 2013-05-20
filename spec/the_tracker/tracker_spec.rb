@@ -33,6 +33,14 @@ describe TheTracker::Tracker do
         @tracker.add sc
         @tracker.header.should == 'google analytics\nsite catalist'
       end
+
+      it 'should not render nil trackers' do
+        ss = mock('Object', :header => 'site nil', :name => :stupid_site)
+        ss.stub(:header).and_return(nil)
+        @tracker.add ss
+        @tracker.header.should == 'google analytics'
+      end
+
     end
   end
 end
