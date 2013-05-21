@@ -2,7 +2,15 @@ require 'spec_helper'
 
 class GAnalitics < TheTracker::Trackers::Base
   def header
-    'some tracking code'
+    'header tracking code'
+  end
+
+  def body_top
+    'body top tracking code'
+  end
+
+  def body_bottom
+    'body bottom tracking code'
   end
 
   def name
@@ -25,7 +33,19 @@ describe 'View Helpers' do
 
   describe 'Header' do
     it 'display header info' do
-      @vc.header_tracking_code.should == 'some tracking code'
+      @vc.header_tracking_code.should == 'header tracking code'
+    end
+  end
+
+  describe 'Body Top' do
+    it 'display top info' do
+      @vc.body_top_tracking_code.should == 'body top tracking code'
+    end
+  end
+
+  describe 'Body Bottom' do
+    it 'display bottom info' do
+      @vc.body_bottom_tracking_code.should == 'body bottom tracking code'
     end
   end
 end
