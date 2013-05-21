@@ -78,7 +78,7 @@ For instance, this example will not show the Google Analytics code if `some_cond
 
       TheTracker::Trackers::GAnalytics.new(:id => 'UA-111111-11')
 
-### Google Analytics
+### Google AdServices
 
       TheTracker::Trackers::GAdservices.new(:id => 'UA-111111-11')
 
