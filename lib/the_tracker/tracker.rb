@@ -23,7 +23,7 @@ module TheTracker
     def header
       trackers.map do | id, tracker |
         tracker.header
-      end.compact.join('\n')
+      end.compact.join("\n")
     end
   end
 end
