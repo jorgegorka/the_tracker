@@ -16,7 +16,17 @@ module TheTracker
 
       # code that should appear on the header section
       def header
-        raise NotImplementedError
+        []
+      end
+
+      # code that should appear on the body top section
+      def body_top
+        []
+      end
+
+      # code that should appear on the body bottom section
+      def body_bottom
+        []
       end
     end
   end

@@ -3,8 +3,20 @@ require 'spec_helper'
 describe TheTracker::Trackers::Base do
   describe :methods do
     describe :header do
-      it 'should raise a NotImplementedError' do
-        expect { subject.header }.to raise_error(NotImplementedError)
+      it 'should return an empty array' do
+         subject.header.should == []
+      end
+    end
+
+    describe :body_top do
+      it 'should return an empty array' do
+         subject.body_top.should == []
+      end
+    end
+
+    describe :body_bottom do
+      it 'should return an empty array' do
+         subject.body_bottom.should == []
       end
     end
 

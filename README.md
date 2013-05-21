@@ -1,8 +1,16 @@
 # TheTracker
 
-Tracker Motherfucker
+A Gem to help you add tracker components to your application
 
-Yes, I know tracking people sucks, but that's the way it goes
+Currently this components are supported:
+
+  Google Analytics
+
+  Uservoice
+
+  Ad Form
+
+  Google Ad Services
 
 ## Installation
 
@@ -69,6 +77,10 @@ For instance, this example will not show the Google Analytics code if `some_cond
 ### Google Analytics
 
       TheTracker::Trackers::GAnalytics.new(:id => 'UA-111111-11')
+
+### Google Analytics
+
+      TheTracker::Trackers::GAdservices.new(:id => 'UA-111111-11')
 
 ## Author
 

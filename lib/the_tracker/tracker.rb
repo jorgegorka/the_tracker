@@ -25,5 +25,19 @@ module TheTracker
         tracker.header
       end.compact.join("\n")
     end
+
+    # Return body top content for all registered trackers
+    def body_top
+      trackers.map do | id, tracker |
+        tracker.body_top
+      end.compact.join("\n")
+    end
+
+    # Return body bottom content for all registered trackers
+    def body_bottom
+      trackers.map do | id, tracker |
+        tracker.body_bottom
+      end.compact.join("\n")
+    end
   end
 end
