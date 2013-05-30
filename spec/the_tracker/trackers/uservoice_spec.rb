@@ -1,11 +1,11 @@
 require 'spec_helper'
 
 describe TheTracker::Trackers::Uservoice do
-  subject { described_class.new(:forum_id => '111', :tab_label => 'Say Hi!') }
+  subject { described_class.new('abcd', {:forum_id => '111', :tab_label => 'Say Hi!'}) }
   describe :methods do
     describe :header do
       it 'should return uservoice content' do
-        subject.header.should include('widget.uservoice.com/')
+        subject.header.should include('widget.uservoice.com/abcd.js')
       end
 
       it 'should include forum_id and tab_label information' do

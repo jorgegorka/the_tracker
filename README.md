@@ -33,7 +33,7 @@ Create a file in config/initializers/tracker.rb
 Add all the trackers you need
 
     TheTracker::Tracker.config do |tmf|
-      tmf.add TheTracker::Trackers::Uservoice.new(:forum_id => 123, :tab_label => 'Say Hi!')
+      tmf.add TheTracker::Trackers::Uservoice.new('YOUR_KEY', {:forum_id => 123, :tab_label => 'Say Hi!'})
       tmf.add TheTracker::Trackers::GAnalytics.new(:id => 'UA-1234123-99')
     end
 
@@ -63,6 +63,8 @@ For instance, this example will not show the Google Analytics code if `some_cond
 ### Uservoice
 
       TheTracker::Trackers::Uservoice.new(
+        'THE_KEY',
+        {
         mode: 'full',
         primary_color: '#ff0000',
         link_color: '#007dbf',
@@ -72,6 +74,7 @@ For instance, this example will not show the Google Analytics code if `some_cond
         tab_color: '#cc0000',
         tab_position: 'middle-left',
         tab_inverted: true
+        }
       )
 
 ### Google Analytics
