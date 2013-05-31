@@ -28,9 +28,9 @@ module TheTracker
         <<-EOF
           <script type="text/javascript">
           UserVoice = window.UserVoice || [];
-          UserVoice.push(['showTab', 'classic_widget', {
+          UserVoice.push(['showTab', 'classic_widget',
             #{@options.to_json}
-          }]);
+          ]);
           </script>
         EOF
       end
