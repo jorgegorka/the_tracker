@@ -18,12 +18,19 @@ module TheTracker
         return if !active
         <<-EOF
           <script type="text/javascript">
-          var uvOptions = #{@options.to_json};
-          (function() {
-          var uv = document.createElement('script'); uv.type = 'text/javascript'; uv.async = true;
-          uv.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'widget.uservoice.com/#{@key_file}.js';
-          var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(uv, s);
-          })();
+          (function(){var uv=document.createElement('script');uv.type='text/javascript';uv.async=true;uv.src='//widget.uservoice.com/#{@key_file}.js';var s=document.getElementsByTagName('script')[0];s.parentNode.insertBefore(uv,s)})()
+          </script>
+        EOF
+      end
+
+      def body_bottom
+        return if !active
+        <<-EOF
+          <script type="text/javascript">
+          UserVoice = window.UserVoice || [];
+          UserVoice.push(['showTab', 'classic_widget', {
+            #{@options.to_json}
+          }]);
           </script>
         EOF
       end

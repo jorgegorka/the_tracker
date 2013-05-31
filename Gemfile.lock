@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    the_tracker (0.4.1)
+    the_tracker (0.4.2)
       rails
 
 GEM
@@ -64,7 +64,7 @@ GEM
       treetop (~> 1.4.8)
     method_source (0.8.1)
     mime-types (1.23)
-    multi_json (1.7.3)
+    multi_json (1.7.4)
     polyglot (0.3.3)
     pry (0.9.12.1)
       coderay (~> 1.0.5)
