@@ -25,6 +25,10 @@ module TheTracker
         custom_vars[index] = [name, value, scope]
       end
 
+      def track_event(category, action, label='', value=0, non_interactive=false)
+        "_gaq.push(['_trackEvent', '#{category}', '#{action}', '#{label}', #{value}, #{non_interactive}]);"
+      end
+
       def header
         return if !active
         <<-EOF

@@ -29,6 +29,12 @@ describe TheTracker::Trackers::GAnalytics do
       end
     end
 
+    describe :track_event do
+      it 'should add the event tag' do
+        subject.track_event('Category', 'Action', "label\'s", '99', true).should == "_gaq.push(['_trackEvent', 'Category', 'Action', 'label\'s', 99, true]);"
+      end
+    end
+
     describe :transactions do
       before :each do
         subject.add_transaction('1234', 'Acme Clothing', '11.99', '1.29', '5', 'San Jose', 'California', 'USA')
