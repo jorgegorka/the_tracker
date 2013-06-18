@@ -45,6 +45,11 @@ describe TheTracker::Trackers::GAnalytics do
         it 'should add the transaction tag' do
           subject.header.should include("_gaq.push(['_addTrans'")
         end
+
+        it 'should add the transaction tag but only once' do
+          subject.header
+          subject.header.should_not include("_gaq.push(['_addTrans'")
+        end
       end
 
       describe :add_transaction_item do

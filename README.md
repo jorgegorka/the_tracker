@@ -102,3 +102,9 @@ For instance, this example will not show the Google Analytics code if `some_cond
 3. Commit your changes (`git commit -am 'Add some feature'`)
 4. Push to the branch (`git push origin my-new-feature`)
 5. Create new Pull Request
+
+## Log
+
+### Version 0.4.6
+
+Fixed bug that keeped information about transactions on each page load.  Now transaction information is displayed only once.

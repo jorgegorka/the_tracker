@@ -73,6 +73,7 @@ module TheTracker
           "_gaq.push(['_addItem', '#{@transaction.id}', '#{item.sku}', '#{item.product}', '#{item.category}', '#{item.price}', '#{item.quantity}']);"
         end.join('\n')
         conf << "_gaq.push(['_trackTrans']);"
+        @transaction = nil
         conf
       end
 
