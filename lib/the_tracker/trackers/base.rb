@@ -4,9 +4,8 @@ module TheTracker
     class Base
       attr_accessor :active
 
-      # Trackers are active by default
       def initialize
-        @active = true
+        @active   = true
       end
 
       # public name

@@ -15,6 +15,32 @@ describe TheTracker::Tracker do
       end
     end
 
+    describe :add_once do
+      it 'register a new tracker' do
+        test_tr = mock('Object', :header => 'my tracker', :name => :track_test)
+        described_class.reset
+        described_class.config do |tmf|
+          tmf.add test_tr
+        end
+        test_tr2 = mock('Object', :header => 'other tracker', :name => :track_test2)
+        described_class.instance.add_once test_tr2
+        described_class.instance.trackers.size.should == 2
+      end
+
+      it 'deregister the tracker after it has been injected on a page' do
+        test_tr = mock('Object', :header => 'my tracker', :name => :track_test)
+        described_class.reset
+        described_class.config do |tmf|
+          tmf.add test_tr
+        end
+        test_tr2 = mock('Object', :header => 'other tracker', :name => :track_test2)
+        described_class.instance.add_once test_tr2
+        described_class.instance.trackers.size.should == 2
+        described_class.instance.header
+        described_class.instance.trackers.size.should == 1
+      end
+    end
+
     describe :header do
       before :each do
         ga = mock('Object', :header => 'google analytics', :name => :ganalytics)
