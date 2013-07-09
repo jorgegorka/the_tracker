@@ -1,6 +1,6 @@
 # TheTracker
 
-A Gem to help you add tracker components to your application
+A Gem to help you add tracker components to your application.  Instead of having to write javascript code to add this trackers you can use plain pure ruby.
 
 Currently this components are supported:
 
@@ -43,9 +43,19 @@ In your views add
       <%= header_tracking_code.html_safe %>
     </header>
 
+If you want to add some trackers in the body you can add:
+
+    <body>
+      <%= body_top_tracking_code.html_safe %>
+
+      ... your page html ...
+
+      <%= body_top_tracking_code.html_safe %>
+    </body>
+
 And that's all the tracking code will be added automatically
 
-If you want to track only certain pages you can do it
+Sometimes you only want to track certain pages:
 
 For instance, this example will not show the Google Analytics code if `some_condition` evaluates to true
 
@@ -53,6 +63,13 @@ For instance, this example will not show the Google Analytics code if `some_cond
       <% TheTracker::Tracker.instance.trackers[:ganalytics].active = some_condition %>
       <%= header_tracking_code.html_safe %>
     </header>
+
+You can add a tracking code only once:
+
+    TheTracker::Tracker.config do |tmf|
+      tmf.add_once TheTracker::Trackers::Uservoice.new('YOUR_KEY', {:forum_id => 123, :tab_label => 'Say Hi and disappear!'})
+    end
+
 
 ## Available Trackers
 
@@ -79,7 +96,29 @@ For instance, this example will not show the Google Analytics code if `some_cond
 
 ### Google Analytics
 
+#### Regular tracking code
       TheTracker::Trackers::GAnalytics.new(:id => 'UA-111111-11')
+
+You can optionally set domain name and allow linker
+
+      TheTracker::Trackers::GAnalytics.new(:id => 'UA-111111-11', :domain_name => 'mydomain.com', :allow_linker => true)
+
+#### Add an e-commerce transaction
+      TheTracker::Tracker.instance.trackers[:ganalytics].add_transaction(tid=0, store='', total=0, tax=0, shipping=0, city='', state='', country='')
+
+Yo don't need to specify an id.  If id is zero the transaction id will be the current timestamp
+
+To add items to the transaction:
+
+      TheTracker::Tracker.instance.trackers[:ganalytics].add_transaction_item(sku='', product='', category='', price=0, quantity=0)
+
+#### Add custom vars
+
+      TheTracker::Tracker.instance.trackers[:ganalytics].add_custom_var(index, name, value, scope)
+
+#### Track an event
+
+      TheTracker::Tracker.instance.trackers[:ganalytics].track_event(category, action, label='', value=0, non_interactive=false)
 
 ### Google AdServices
 
