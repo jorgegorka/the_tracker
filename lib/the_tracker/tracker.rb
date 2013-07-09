@@ -11,33 +11,58 @@ module TheTracker
 
     # register a new tracker
     def add(tracker)
-      trackers[tracker.name] = tracker
+      regular_trackers[tracker.name] = tracker
+    end
+
+    # register a new one time only tracker
+    def add_once(tracker)
+      one_time_trackers[tracker.name] = tracker
     end
 
     # registered trackers
     def trackers
-      @trackers ||= {}
+      one_time_trackers.empty? ? regular_trackers : regular_trackers.merge(one_time_trackers)
     end
 
     # Return header content for all registered trackers
     def header
-      trackers.map do | id, tracker |
-        tracker.header
-      end.compact.join("\n")
+      show_trackers_for(:header)
     end
 
     # Return body top content for all registered trackers
     def body_top
-      trackers.map do | id, tracker |
-        tracker.body_top
-      end.compact.join("\n")
+      show_trackers_for(:body_top)
     end
 
     # Return body bottom content for all registered trackers
     def body_bottom
+      show_trackers_for(:body_bottom)
+    end
+
+    private
+
+    def show_trackers_for(position)
+      trk_result = generate_track_info_for(position)
+      remove_one_time_trackers
+      return trk_result
+    end
+
+    def generate_track_info_for(position)
       trackers.map do | id, tracker |
-        tracker.body_bottom
+        tracker.send(position)
       end.compact.join("\n")
+    end
+
+    def regular_trackers
+      @regular_trackers ||= {}
+    end
+
+    def one_time_trackers
+      @one_time_trackers ||= {}
+    end
+
+    def remove_one_time_trackers
+      @one_time_trackers = {}
     end
   end
 end

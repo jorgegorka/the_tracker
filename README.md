@@ -83,7 +83,7 @@ For instance, this example will not show the Google Analytics code if `some_cond
 
 ### Google AdServices
 
-      TheTracker::Trackers::GAdservices.new(:id => 'UA-111111-11')
+      TheTracker::Trackers::GAdServices.new(:id => 'UA-111111-11')
 
 ## Author
 
@@ -104,6 +104,10 @@ For instance, this example will not show the Google Analytics code if `some_cond
 5. Create new Pull Request
 
 ## Log
+
+### Version 0.5.0
+
+Now you can add a tracker that will be displayed only once and removed from subsequent requests.
 
 ### Version 0.4.6
 
