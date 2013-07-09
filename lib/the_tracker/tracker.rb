@@ -36,18 +36,14 @@ module TheTracker
 
     # Return body bottom content for all registered trackers
     def body_bottom
-      show_trackers_for(:body_bottom)
+      trk_result = show_trackers_for(:body_bottom)
+      remove_one_time_trackers
+      return trk_result
     end
 
     private
 
     def show_trackers_for(position)
-      trk_result = generate_track_info_for(position)
-      remove_one_time_trackers
-      return trk_result
-    end
-
-    def generate_track_info_for(position)
       trackers.map do | id, tracker |
         tracker.send(position)
       end.compact.join("\n")
