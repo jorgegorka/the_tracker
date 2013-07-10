@@ -122,7 +122,14 @@ To add items to the transaction:
 
 ### Google AdServices
 
-      TheTracker::Trackers::GAdServices.new(:id => 'UA-111111-11')
+      TheTracker::Trackers::GAdServices.new(
+        id: 'UA-111111-11'
+        language: 'en,
+        format: '1',
+        color: 'ffffff',
+        label: 'qwerty',
+        value: '0'
+      )
 
 ## Author
 
