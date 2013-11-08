@@ -12,6 +12,8 @@ Currently this components are supported:
 
   Google Ad Services
 
+  Kenshoo Conversion Pixel
+
 ## Installation
 
 Add this line to your application's Gemfile:
@@ -50,7 +52,7 @@ If you want to add some trackers in the body you can add:
 
       ... your page html ...
 
-      <%= body_top_tracking_code.html_safe %>
+      <%= body_bottom_tracking_code.html_safe %>
     </body>
 
 And that's all the tracking code will be added automatically
@@ -124,13 +126,24 @@ To add items to the transaction:
 
       TheTracker::Trackers::GAdServices.new(
         id: 'UA-111111-11'
-        language: 'en,
+        language: 'en',
         format: '1',
         color: 'ffffff',
         label: 'qwerty',
         value: '0'
       )
 
+### Kenshoo Conversion Pixel
+
+      TheTracker::Trackers::Kenshoo.new(
+        token: '999'
+        type: 'conv',
+        val: '0',
+        orderId: '88988',
+        promoCode: 'easter',
+        valueCurrency: 'EUR',
+        trackEvent: '1234'
+      )
 ## Author
 
  Created by Jorge Alvarez
