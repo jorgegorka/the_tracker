@@ -164,6 +164,12 @@ To add items to the transaction:
 
 ## Log
 
+### Version 1.0.0
+
+Everything is stable so time to bump version to 1.0.0
+
+Added Kenshoo conversion pixel support
+
 ### Version 0.5.0
 
 Now you can add a tracker that will be displayed only once and removed from subsequent requests.
