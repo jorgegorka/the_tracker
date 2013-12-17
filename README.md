@@ -6,6 +6,8 @@ Currently this components are supported:
 
   Google Analytics
 
+  Google Tag Mangaer
+
   Uservoice
 
   Ad Form
@@ -121,6 +123,10 @@ To add items to the transaction:
 #### Track an event
 
       TheTracker::Tracker.instance.trackers[:ganalytics].track_event(category, action, label='', value=0, non_interactive=false)
+
+### Google Tag Manager
+
+      TheTracker::Trackers::Gtm.new(:gtmid => 'GTM-111111')
 
 ### Google AdServices
 
