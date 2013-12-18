@@ -8,13 +8,23 @@ describe TheTracker::Trackers::Gtm do
         subject.body_top.should include('<iframe src="//www.googletagmanager.com/ns.html?id=')
       end
 
-      it 'should include id, langage, format, color, label and value information' do
-        subject.body_top.should include("id=GTM-XXXXX");
-      end
-
       it 'returns nothing if tracker not active' do
         subject.active = false
         subject.body_top.should == nil
+      end
+    end
+
+    describe :add_data_layer do
+      before :each do
+        subject.add_data_layer('client_id', 123)
+      end
+
+      it 'adds a new value to data layer info' do
+        subject.body_top.should include("'client_id': '123'")
+      end
+      it 'adds a new value to data layer info stack' do
+        subject.add_data_layer('status', 'big_boss')
+        subject.body_top.should include("'client_id': '123','status': 'big_boss'")
       end
     end
   end
