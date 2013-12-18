@@ -128,6 +128,10 @@ To add items to the transaction:
 
       TheTracker::Trackers::Gtm.new(:gtmid => 'GTM-111111')
 
+To add (dataLayer variables to GTM)[https://developers.google.com/tag-manager/devguide]
+
+      TheTracker::Tracker.instance.trackers[:gtm].add_data_layer(name, value)
+
 ### Google AdServices
 
       TheTracker::Trackers::GAdServices.new(
