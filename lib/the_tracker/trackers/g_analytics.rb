@@ -62,7 +62,7 @@ module TheTracker
 
       def set_custom_vars
         custom_vars.map do | index, cv |
-          "_gaq.push(['_setCustomVar', '#{index}', '#{cv[0]}', '#{cv[1]}', '#{cv[2]}']);"
+          "_gaq.push(['_setCustomVar', #{index}, '#{cv[0]}', '#{cv[1]}', '#{cv[2]}']);"
         end.join('\n')
       end
 

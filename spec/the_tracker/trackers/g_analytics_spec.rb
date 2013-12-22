@@ -25,7 +25,7 @@ describe TheTracker::Trackers::GAnalytics do
     describe :add_custom_var do
       it 'should add a custom var' do
         subject.add_custom_var(1, 'user', '111', 1)
-        subject.header.should include("_gaq.push(['_setCustomVar', '1', 'user', '111', '1']);")
+        subject.header.should include("_gaq.push(['_setCustomVar', 1, 'user', '111', '1']);")
       end
     end
 
