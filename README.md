@@ -154,6 +154,15 @@ To add [dataLayer variables to GTM](https://developers.google.com/tag-manager/de
         valueCurrency: 'EUR',
         trackEvent: '1234'
       )
+
+### Relevant Traffic Conversion Pixel
+
+      TheTracker::Trackers::Relevant.new(
+        token: '4329847'
+        seg: '289347',
+        orderId: '88AB988'
+      )
+
 ## Author
 
  Created by Jorge Alvarez
@@ -173,6 +182,10 @@ To add [dataLayer variables to GTM](https://developers.google.com/tag-manager/de
 5. Create new Pull Request
 
 ## Log
+
+### Version 1.1.1
+
+Added Relevant Traffic conversion pixel support
 
 ### Version 1.0.0
 
