@@ -16,6 +16,8 @@ Currently this components are supported:
 
   Kenshoo Conversion Pixel
 
+  Relevant Traffic Conversion Pixel
+
 ## Installation
 
 Add this line to your application's Gemfile:
@@ -183,7 +185,7 @@ To add [dataLayer variables to GTM](https://developers.google.com/tag-manager/de
 
 ## Log
 
-### Version 1.1.1
+### Version 1.1.2
 
 Added Relevant Traffic conversion pixel support
 
