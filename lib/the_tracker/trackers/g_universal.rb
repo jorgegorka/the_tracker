@@ -2,6 +2,8 @@ module TheTracker
   module Trackers
     class GUniversal < Base
 
+      attr_accessor :name
+
       # Universal Analytics
       def initialize(options)
         @name    = options.delete(:name) || :guniversal
@@ -9,25 +11,25 @@ module TheTracker
         super()
       end
 
-      def name
-        @name
-      end
-
-      def add_transaction(tid=0, store='', total=0, tax=0, shipping=0, city='', state='', country='')
+      def add_transaction(tid=0, store='', total=0, tax=0, shipping=0)
         tid = Time.now.to_i if (tid.nil?) or (tid.to_s == '0')
-        @transaction = Transaction.new(tid, store, total, tax, shipping, city, state, country)
+        @transaction = EcommerceTransaction.new(tid, store, total, tax, shipping)
       end
 
       def add_transaction_item(sku='', product='', category='', price=0, quantity=0)
         @transaction.add_item(sku, product, category, price, quantity)
       end
 
-      def add_custom_var(index, name, value, scope)
-        custom_vars[index] = [name, value, scope]
+      def add_custom_var(type, index, value)
+        if (type == :dimension)
+          custom_dimensions[index] = value
+        else
+          custom_metrics[index] = value
+        end
       end
 
-      def track_event(category, action, label='', value=0, non_interactive=false)
-        "_gaq.push(['_trackEvent', '#{category}', '#{action}', '#{label}', #{value}, #{non_interactive}]);"
+      def add_user_id(uid)
+        @uid = uid
       end
 
       def header
@@ -39,7 +41,7 @@ module TheTracker
         (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
         m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
         })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-        ga('create', '#{@options[:id]}', 'auto', {'allowLinker': true});
+        ga('create', '#{@options[:id]}', 'auto', {#{create_conf}});
         ga('send', 'pageview');
         #{extra_conf}
         </script>
@@ -49,25 +51,44 @@ module TheTracker
 
       private
 
+      def create_conf
+        [allow_linker, user_id].compact.join(', ')
+      end
+
+      def allow_linker
+        "'allowLinker': true" if @options[:allow_linker]
+      end
+
+      def user_id
+        "'userId': '#{@uid}'" if @uid
+      end
+
       def extra_conf
         conf = ''
         conf << "ga('require', 'linker');\n"
-        conf << "ga('linker:autoLink', [#{@options[:domain_name]"]);\n" if @options[:domain_name]
-        conf << set_custom_vars
+        conf << "ga('linker:autoLink', #{@options[:domain_name]});\n" if @options[:domain_name]
+        conf << set_custom_dimensions
+        conf << set_custom_metrics
         conf << set_transactions
         conf
       end
 
-      def set_custom_vars
-        custom_vars.map do | index, cv |
-          "_gaq.push(['_setCustomVar', #{index}, '#{cv[0]}', '#{cv[1]}', '#{cv[2]}']);"
+      def set_custom_dimensions
+        custom_dimensions.map do | index, value |
+          "ga('set', 'dimension#{index}', '#{value}');"
+        end.join('\n')
+      end
+
+      def set_custom_metrics
+        custom_metrics.map do | index, value |
+          "ga('set', 'metric#{index}', '#{value}');"
         end.join('\n')
       end
 
       def set_transactions
         return '' unless @transaction
         conf = "ga('require', 'ecommerce', 'ecommerce.js');\n"
-        conf = "ga('ecommerce:addTransaction', { 'id': '#{@transaction.id}', 'affiliation': '#{@transaction.store}', 'revenue': '#{@transaction.total}', 'shipping': '#{@transaction.shipping}', 'tax': '#{@transaction.tax}' });\n"
+        conf << "ga('ecommerce:addTransaction', { 'id': '#{@transaction.id}', 'affiliation': '#{@transaction.store}', 'revenue': '#{@transaction.total}', 'shipping': '#{@transaction.shipping}', 'tax': '#{@transaction.tax}' });\n"
         conf << @transaction.items.map do |item|
           "ga('ecommerce:addItem', {'id': '#{@transaction.id}', 'name': '#{item.product}', 'sku': '#{item.sku}', 'category': '#{item.category}', 'price': '#{item.price}', 'quantity': '#{item.quantity}'});\n"
         end.join('\n')
@@ -76,17 +97,21 @@ module TheTracker
         conf
       end
 
-      def custom_vars
-        @custom_vars ||= {}
+      def custom_dimensions
+        @custom_dimensions ||= {}
+      end
+
+      def custom_metrics
+        @custom_metrics ||= {}
       end
     end
 
-    class Item < Struct.new(:sku, :product, :category, :price, :quantity)
+    class EcommerceItem < Struct.new(:sku, :product, :category, :price, :quantity)
     end
 
-    class Transaction < Struct.new(:id, :store, :total, :tax, :shipping, :city, :state, :country)
+    class EcommerceTransaction < Struct.new(:id, :store, :total, :tax, :shipping)
       def add_item(sku, product, category, price, quantity)
-        items << Item.new(sku, product, category, price, quantity)
+        items << EcommerceItem.new(sku, product, category, price, quantity)
       end
 
       def items
@@ -95,6 +120,3 @@ module TheTracker
     end
   end
 end
-
-
-
