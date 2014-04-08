@@ -6,6 +6,8 @@ Currently this components are supported:
 
   Google Analytics
 
+  Google Universal Analytics
+
   Google Tag Mangaer
 
   Uservoice
@@ -49,7 +51,7 @@ In your views add
       <%= header_tracking_code.html_safe %>
     </header>
 
-If you want to add some trackers in the body you can add:
+If the tracker needs to add code into the body:
 
     <body>
       <%= body_top_tracking_code.html_safe %>
@@ -59,7 +61,7 @@ If you want to add some trackers in the body you can add:
       <%= body_bottom_tracking_code.html_safe %>
     </body>
 
-And that's all the tracking code will be added automatically
+And that's all, the tracking code will be added automatically
 
 Sometimes you only want to track certain pages:
 
@@ -70,7 +72,7 @@ For instance, this example will not show the Google Analytics code if `some_cond
       <%= header_tracking_code.html_safe %>
     </header>
 
-You can add a tracking code only once:
+You can add a tracking code on a single page:
 
     TheTracker::Tracker.config do |tmf|
       tmf.add_once TheTracker::Trackers::Uservoice.new('YOUR_KEY', {:forum_id => 123, :tab_label => 'Say Hi and disappear!'})
@@ -125,6 +127,33 @@ To add items to the transaction:
 #### Track an event
 
       TheTracker::Tracker.instance.trackers[:ganalytics].track_event(category, action, label='', value=0, non_interactive=false)
+
+### Google Universal Analytics
+
+#### Regular tracking code
+      TheTracker::Trackers::GUniversal.new(:id => 'UA-111111-11')
+
+You can optionally set an array of domains and allow linker
+
+      TheTracker::Trackers::GUniversal.new(:id => 'UA-111111-11', :domain_name => ['onedomain.com', 'anotherdomain.com'], :allow_linker => true)
+
+#### Add an e-commerce transaction
+      TheTracker::Tracker.instance.trackers[:guniversal].add_transaction(tid=0, store='', total=0, tax=0, shipping=0)
+
+Yo don't need to specify an id.  If id is zero the transaction id will be the current timestamp
+
+To add items to the transaction:
+
+      TheTracker::Tracker.instance.trackers[:guniversal].add_transaction_item(sku='', product='', category='', price=0, quantity=0)
+
+#### Add custom dimensions and metrics
+
+      TheTracker::Tracker.instance.trackers[:guniversal].add_custom_var(:dimension, index, value)
+      TheTracker::Tracker.instance.trackers[:guniversal].add_custom_var(:metric, index, value)
+
+#### Add User Id
+
+      TheTracker::Tracker.instance.trackers[:guniversal].add_user_id(id)
 
 ### Google Tag Manager
 
