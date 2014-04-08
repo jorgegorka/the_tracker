@@ -1,3 +1,5 @@
+[![Gem Version](https://badge.fury.io/rb/the_tracker.svg)](http://badge.fury.io/rb/the_tracker)
+
 # TheTracker
 
 A Gem to help you add tracker components to your application.  Instead of having to write javascript code to add this trackers you can use plain pure ruby.
