@@ -52,7 +52,11 @@ module TheTracker
       private
 
       def create_conf
-        [allow_linker, user_id].compact.join(', ')
+        [account_name, allow_linker, user_id].compact.join(', ')
+      end
+
+      def account_name
+        "'name': '#{name}'"
       end
 
       def allow_linker

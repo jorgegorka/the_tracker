@@ -237,6 +237,10 @@ The Tracker is released under the [MIT License](http://www.opensource.org/licens
 
 ## Log
 
+### Version 1.2.3
+
+Fixed bug with namespace
+
 ### Version 1.2.2
 
 Support for more than one Universal analytics account
