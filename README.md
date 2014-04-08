@@ -137,6 +137,25 @@ You can optionally set an array of domains and allow linker
 
       TheTracker::Trackers::GUniversal.new(:id => 'UA-111111-11', :domain_name => ['onedomain.com', 'anotherdomain.com'], :allow_linker => true)
 
+#### Track multiple analytics accounts
+
+All tracking codes are namespaced to avoid conflicts with other existant Universal analytics accounts or to allow you to use more than one account.
+
+If you create an account without specifiying a name the default name will be 'guniversal':
+      TheTracker::Trackers::GUniversal.new(:id => 'UA-111111-11')
+
+the code that will be injected on the page will be like this:
+      ga('guniversal.send', 'pageview');
+
+If you want to add another universal analytics account you should define a name when creating it:
+      TheTracker::Trackers::GUniversal.new(id: 'UA-111111-11', name: 'second_account')
+
+and the code generated will be like this:
+      ga('second_account.send', 'pageview');
+
+To add information to a specific account just use the appropiate tracker
+      TheTracker::Tracker.instance.trackers[:second_account].add_custom_var(:dimension, 1, 'I am second to none')
+
 #### Add an e-commerce transaction
       TheTracker::Tracker.instance.trackers[:guniversal].add_transaction(tid=0, store='', total=0, tax=0, shipping=0)
 
@@ -212,7 +231,23 @@ To add [dataLayer variables to GTM](https://developers.google.com/tag-manager/de
 4. Push to the branch (`git push origin my-new-feature`)
 5. Create new Pull Request
 
+## License
+
+The Tracker is released under the [MIT License](http://www.opensource.org/licenses/MIT).
+
 ## Log
+
+### Version 1.2.2
+
+Support for more than one Universal analytics account
+
+### Version 1.2.1
+
+Support for userId in Universal analytics
+
+### Version 1.2.0
+
+Added Universal analytics
 
 ### Version 1.1.2
 

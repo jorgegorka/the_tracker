@@ -42,7 +42,7 @@ module TheTracker
         m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
         })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
         ga('create', '#{@options[:id]}', 'auto', {#{create_conf}});
-        ga('send', 'pageview');
+        ga('#{name}.send', 'pageview');
         #{extra_conf}
         </script>
         <!-- End Google Analytics -->
@@ -65,7 +65,7 @@ module TheTracker
 
       def extra_conf
         conf = ''
-        conf << "ga('require', 'linker');\n"
+        conf << "ga('#{name}.require', 'linker');\n"
         conf << "ga('linker:autoLink', #{@options[:domain_name]});\n" if @options[:domain_name]
         conf << set_custom_dimensions
         conf << set_custom_metrics
@@ -75,24 +75,24 @@ module TheTracker
 
       def set_custom_dimensions
         custom_dimensions.map do | index, value |
-          "ga('set', 'dimension#{index}', '#{value}');"
+          "ga('#{name}.set', 'dimension#{index}', '#{value}');"
         end.join(' ')
       end
 
       def set_custom_metrics
         custom_metrics.map do | index, value |
-          "ga('set', 'metric#{index}', '#{value}');"
+          "ga('#{name}.set', 'metric#{index}', '#{value}');"
         end.join(' ')
       end
 
       def set_transactions
         return '' unless @transaction
-        conf = "ga('require', 'ecommerce', 'ecommerce.js');\n"
-        conf << "ga('ecommerce:addTransaction', { 'id': '#{@transaction.id}', 'affiliation': '#{@transaction.store}', 'revenue': '#{@transaction.total}', 'shipping': '#{@transaction.shipping}', 'tax': '#{@transaction.tax}' });\n"
+        conf = "ga('#{name}.require', 'ecommerce', 'ecommerce.js');\n"
+        conf << "ga('#{name}.ecommerce:addTransaction', { 'id': '#{@transaction.id}', 'affiliation': '#{@transaction.store}', 'revenue': '#{@transaction.total}', 'shipping': '#{@transaction.shipping}', 'tax': '#{@transaction.tax}' });\n"
         conf << @transaction.items.map do |item|
-          "ga('ecommerce:addItem', {'id': '#{@transaction.id}', 'name': '#{item.product}', 'sku': '#{item.sku}', 'category': '#{item.category}', 'price': '#{item.price}', 'quantity': '#{item.quantity}'});\n"
+          "ga('#{name}.ecommerce:addItem', {'id': '#{@transaction.id}', 'name': '#{item.product}', 'sku': '#{item.sku}', 'category': '#{item.category}', 'price': '#{item.price}', 'quantity': '#{item.quantity}'});\n"
         end.join('\n')
-        conf << "ga('ecommerce:send');\n"
+        conf << "ga('#{name}.ecommerce:send');\n"
         @transaction = nil
         conf
       end
