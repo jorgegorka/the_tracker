@@ -67,7 +67,7 @@ And that's all, the tracking code will be added automatically
 
 Sometimes you only want to track certain pages:
 
-For instance, this example will not show the Google Analytics code if `some_condition` evaluates to true
+For instance, this example will show the Google Analytics code only if `some_condition` evaluates to true
 
     <header>
       <% TheTracker::Tracker.instance.trackers[:ganalytics].active = some_condition %>
