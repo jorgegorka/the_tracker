@@ -81,6 +81,9 @@ You can add a tracking code on a single page:
     TheTracker::Tracker.config do |tmf|
       tmf.add_once TheTracker::Trackers::Uservoice.new('YOUR_KEY', {:forum_id => 123, :tab_label => 'Say Hi and disappear!'})
     end
+    
+## [Documentation](https://github.com/jorgegorka/the_tracker/wiki)
+
 
 ## Author
 
