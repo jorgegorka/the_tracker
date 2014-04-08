@@ -76,13 +76,13 @@ module TheTracker
       def set_custom_dimensions
         custom_dimensions.map do | index, value |
           "ga('set', 'dimension#{index}', '#{value}');"
-        end.join('\n')
+        end.join(' ')
       end
 
       def set_custom_metrics
         custom_metrics.map do | index, value |
           "ga('set', 'metric#{index}', '#{value}');"
-        end.join('\n')
+        end.join(' ')
       end
 
       def set_transactions
