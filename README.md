@@ -24,6 +24,8 @@ Currently this components are supported:
 
   Relevant Traffic Conversion Pixel
 
+  YD RTB Pixel
+
 ## Installation
 
 Add this line to your application's Gemfile:
@@ -81,8 +83,10 @@ You can add a tracking code on a single page:
     TheTracker::Tracker.config do |tmf|
       tmf.add_once TheTracker::Trackers::Uservoice.new('YOUR_KEY', {:forum_id => 123, :tab_label => 'Say Hi and disappear!'})
     end
-    
+
 ## [Documentation](https://github.com/jorgegorka/the_tracker/wiki)
+
+Read the documentation to find details about how to implement each pixel available.
 
 
 ## Author
@@ -108,6 +112,10 @@ You can add a tracking code on a single page:
 The Tracker is released under the [MIT License](http://www.opensource.org/licenses/MIT).
 
 ## Log
+
+### Version 1.3.0
+
+YD RTB support
 
 ### Version 1.2.3
 
