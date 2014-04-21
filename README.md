@@ -113,6 +113,10 @@ The Tracker is released under the [MIT License](http://www.opensource.org/licens
 
 ## Log
 
+### Version 1.3.1
+
+Fixed gem generation problem
+
 ### Version 1.3.0
 
 YD RTB support
