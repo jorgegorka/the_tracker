@@ -8,8 +8,8 @@ Gem::Specification.new do |gem|
   gem.version       = TheTracker::VERSION
   gem.authors       = ["Jorge Alvarez"]
   gem.email         = ["jorge@alvareznavarro.es"]
-  gem.description   = %q{Add tracking codes to your rails app}
-  gem.summary       = %q{Analytics, Website Optimizer, Clicktale...}
+  gem.description   = %q{Simple way to add Google analytics, universal analytics, uservoice, etc. to your rails app}
+  gem.summary       = %q{Analytics, Universal Analytics, Uservoice...}
   gem.homepage      = ""
 
   gem.files         = `git ls-files`.split($/)

@@ -1,3 +1,7 @@
+[![Gem Version](https://badge.fury.io/rb/the_tracker.svg)](http://badge.fury.io/rb/the_tracker)
+
+Simple way to add Google analytics, universal analytics, uservoice to your rails app
+
 # TheTracker
 
 A Gem to help you add tracker components to your application.  Instead of having to write javascript code to add this trackers you can use plain pure ruby.
@@ -67,7 +71,7 @@ And that's all, the tracking code will be added automatically
 
 Sometimes you only want to track certain pages:
 
-For instance, this example will not show the Google Analytics code if `some_condition` evaluates to true
+For instance, this example will show the Google Analytics code only if `some_condition` evaluates to true
 
     <header>
       <% TheTracker::Tracker.instance.trackers[:ganalytics].active = some_condition %>
@@ -80,148 +84,10 @@ You can add a tracking code on a single page:
       tmf.add_once TheTracker::Trackers::Uservoice.new('YOUR_KEY', {:forum_id => 123, :tab_label => 'Say Hi and disappear!'})
     end
 
+## [Documentation](https://github.com/jorgegorka/the_tracker/wiki)
 
-## Available Trackers
+Read the documentation to find details about how to implement each pixel available.
 
-### AdFrom
-
-      TheTracker::Trackers::AdForm.new(:pm => 123, :id => 444)
-
-### Uservoice
-
-      TheTracker::Trackers::Uservoice.new(
-        'THE_KEY',
-        {
-        mode: 'full',
-        primary_color: '#ff0000',
-        link_color: '#007dbf',
-        default_mode: 'support',
-        forum_id: 111,
-        tab_label: 'Say Hi!',
-        tab_color: '#cc0000',
-        tab_position: 'middle-left',
-        tab_inverted: true
-        }
-      )
-
-### Google Analytics
-
-#### Regular tracking code
-      TheTracker::Trackers::GAnalytics.new(:id => 'UA-111111-11')
-
-You can optionally set domain name and allow linker
-
-      TheTracker::Trackers::GAnalytics.new(:id => 'UA-111111-11', :domain_name => 'mydomain.com', :allow_linker => true)
-
-#### Add an e-commerce transaction
-      TheTracker::Tracker.instance.trackers[:ganalytics].add_transaction(tid=0, store='', total=0, tax=0, shipping=0, city='', state='', country='')
-
-Yo don't need to specify an id.  If id is zero the transaction id will be the current timestamp
-
-To add items to the transaction:
-
-      TheTracker::Tracker.instance.trackers[:ganalytics].add_transaction_item(sku='', product='', category='', price=0, quantity=0)
-
-#### Add custom vars
-
-      TheTracker::Tracker.instance.trackers[:ganalytics].add_custom_var(index, name, value, scope)
-
-#### Track an event
-
-      TheTracker::Tracker.instance.trackers[:ganalytics].track_event(category, action, label='', value=0, non_interactive=false)
-
-### Google Universal Analytics
-
-#### Regular tracking code
-      TheTracker::Trackers::GUniversal.new(:id => 'UA-111111-11')
-
-You can optionally set an array of domains and allow linker
-
-      TheTracker::Trackers::GUniversal.new(:id => 'UA-111111-11', :domain_name => ['onedomain.com', 'anotherdomain.com'], :allow_linker => true)
-
-#### Track multiple analytics accounts
-
-All tracking codes are namespaced to avoid conflicts with other existant Universal analytics accounts or to allow you to use more than one account.
-
-If you create an account without specifiying a name the default name will be 'guniversal':
-      TheTracker::Trackers::GUniversal.new(:id => 'UA-111111-11')
-
-the code that will be injected on the page will be like this:
-      ga('guniversal.send', 'pageview');
-
-If you want to add another universal analytics account you should define a name when creating it:
-      TheTracker::Trackers::GUniversal.new(id: 'UA-111111-11', name: 'second_account')
-
-and the code generated will be like this:
-      ga('second_account.send', 'pageview');
-
-To add information to a specific account just use the appropiate tracker
-      TheTracker::Tracker.instance.trackers[:second_account].add_custom_var(:dimension, 1, 'I am second to none')
-
-#### Add an e-commerce transaction
-      TheTracker::Tracker.instance.trackers[:guniversal].add_transaction(tid=0, store='', total=0, tax=0, shipping=0)
-
-Yo don't need to specify an id.  If id is zero the transaction id will be the current timestamp
-
-To add items to the transaction:
-
-      TheTracker::Tracker.instance.trackers[:guniversal].add_transaction_item(sku='', product='', category='', price=0, quantity=0)
-
-#### Add custom dimensions and metrics
-
-      TheTracker::Tracker.instance.trackers[:guniversal].add_custom_var(:dimension, index, value)
-      TheTracker::Tracker.instance.trackers[:guniversal].add_custom_var(:metric, index, value)
-
-#### Add User Id
-
-      TheTracker::Tracker.instance.trackers[:guniversal].add_user_id(id)
-
-### Google Tag Manager
-
-      TheTracker::Trackers::Gtm.new(:gtmid => 'GTM-111111')
-
-To add [dataLayer variables to GTM](https://developers.google.com/tag-manager/devguide)
-
-      TheTracker::Tracker.instance.trackers[:gtm].add_data_layer(name, value)
-
-### Google AdServices
-
-      TheTracker::Trackers::GAdServices.new(
-        id: 'UA-111111-11'
-        language: 'en',
-        format: '1',
-        color: 'ffffff',
-        label: 'qwerty',
-        value: '0'
-      )
-
-### Kenshoo Conversion Pixel
-
-      TheTracker::Trackers::Kenshoo.new(
-        token: '999'
-        type: 'conv',
-        val: '0',
-        orderId: '88988',
-        promoCode: 'easter',
-        valueCurrency: 'EUR',
-        trackEvent: '1234'
-      )
-
-### Relevant Traffic Conversion Pixel
-
-      TheTracker::Trackers::Relevant.new(
-        token: '4329847'
-        seg: '289347',
-        orderId: '88AB988'
-      )
-
-### YD RTB Support
-
-      TheTracker::Trackers::Relevant.new(
-        token: '4329847'
-        seg: '289347',
-        orderId: '88AB988'
-      )
 
 ## Author
 
@@ -249,7 +115,7 @@ The Tracker is released under the [MIT License](http://www.opensource.org/licens
 
 ### Version 1.3.0
 
-Added YD RTB support
+YD RTB support
 
 ### Version 1.2.3
 
