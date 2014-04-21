@@ -20,6 +20,8 @@ Currently this components are supported:
 
   Relevant Traffic Conversion Pixel
 
+  YD RTB Pixel
+
 ## Installation
 
 Add this line to your application's Gemfile:
@@ -213,6 +215,14 @@ To add [dataLayer variables to GTM](https://developers.google.com/tag-manager/de
         orderId: '88AB988'
       )
 
+### YD RTB Support
+
+      TheTracker::Trackers::Relevant.new(
+        token: '4329847'
+        seg: '289347',
+        orderId: '88AB988'
+      )
+
 ## Author
 
  Created by Jorge Alvarez
@@ -236,6 +246,10 @@ To add [dataLayer variables to GTM](https://developers.google.com/tag-manager/de
 The Tracker is released under the [MIT License](http://www.opensource.org/licenses/MIT).
 
 ## Log
+
+### Version 1.3.0
+
+Added YD RTB support
 
 ### Version 1.2.3
 
