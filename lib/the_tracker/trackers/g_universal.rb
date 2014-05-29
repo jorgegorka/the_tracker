@@ -42,10 +42,11 @@ module TheTracker
         m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
         })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
         ga('create', '#{@options[:id]}', {#{create_conf}});
+        #{extra_conf}
         ga('#{name}.send', 'pageview');
         ga('require', 'displayfeatures');
         ga('require', 'linkid', 'linkid.js');
-        #{extra_conf}
+        #{set_transactions}
         </script>
         <!-- End Google Analytics -->
         EOF
@@ -75,7 +76,6 @@ module TheTracker
         conf << "ga('linker:autoLink', #{@options[:domain_name]});\n" if @options[:domain_name]
         conf << set_custom_dimensions
         conf << set_custom_metrics
-        conf << set_transactions
         conf
       end
 

@@ -13,7 +13,7 @@ describe TheTracker::Trackers::GUniversal do
     end
 
     it 'should return allow linker name content' do
-      @ga.header.should include("ga('create', 'UA-111-22', 'auto', {'name': 'guniversal', 'allowLinker': true});")
+      @ga.header.should include("ga('create', 'UA-111-22', {'name': 'guniversal', 'allowLinker': true});")
     end
 
     it 'should return require linker' do
@@ -94,7 +94,7 @@ describe TheTracker::Trackers::GUniversal do
       describe :add_user_id do
         it 'should return User Id' do
           subject.add_user_id('abcde123456')
-          subject.header.should include("ga('create', 'UA-111-11', 'auto', {'name': 'guniversal', 'userId': 'abcde123456'});")
+          subject.header.should include("ga('create', 'UA-111-11', {'name': 'guniversal', 'userId': 'abcde123456'});")
         end
       end
     end
@@ -105,11 +105,11 @@ describe TheTracker::Trackers::GUniversal do
       end
 
       it 'should include UA information' do
-        subject.header.should include("ga('create', 'UA-111-11', 'auto', {'name': 'guniversal'});")
+        subject.header.should include("ga('create', 'UA-111-11', {'name': 'guniversal'});")
       end
 
       it 'should not include linker information by default' do
-        subject.header.should_not include("ga('create', 'UA-111-11', 'auto', {'allowLinker': true});")
+        subject.header.should_not include("ga('create', 'UA-111-11', {'allowLinker': true});")
       end
     end
 
