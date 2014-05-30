@@ -25,6 +25,8 @@ Currently this components are supported:
   Relevant Traffic Conversion Pixel
 
   YD RTB Pixel
+  
+  Smart 4 Ads
 
 ## Installation
 
@@ -88,7 +90,7 @@ For more examples please visit [how to use it](https://github.com/jorgegorka/the
 
 ## [Documentation](https://github.com/jorgegorka/the_tracker/wiki)
 
-Read the documentation to find details about how to implement each pixel available.
+[Read the documentation](https://github.com/jorgegorka/the_tracker/wiki) to find details about how to implement each pixel available.
 
 
 ## Author
@@ -114,6 +116,12 @@ Read the documentation to find details about how to implement each pixel availab
 The Tracker is released under the [MIT License](http://www.opensource.org/licenses/MIT).
 
 ## Log
+
+### Version 1.4.0
+
+Smart 4 Ads support
+
+Universal analytics require libraries for demographic reports and enhanced link attribution 
 
 ### Version 1.3.1
 
