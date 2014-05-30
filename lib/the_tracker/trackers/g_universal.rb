@@ -42,10 +42,10 @@ module TheTracker
         m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
         })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
         ga('create', '#{@options[:id]}', {#{create_conf}});
-        #{extra_conf}
-        ga('#{name}.send', 'pageview');
         ga('require', 'displayfeatures');
         ga('require', 'linkid', 'linkid.js');
+        #{extra_conf}
+        ga('#{name}.send', 'pageview');
         #{set_transactions}
         </script>
         <!-- End Google Analytics -->
@@ -74,21 +74,26 @@ module TheTracker
         conf = ''
         conf << "ga('#{name}.require', 'linker');\n"
         conf << "ga('linker:autoLink', #{@options[:domain_name]});\n" if @options[:domain_name]
-        conf << set_custom_dimensions
-        conf << set_custom_metrics
+        conf << set_custom_dimensions_and_metrics
         conf
       end
 
+      def set_custom_dimensions_and_metrics
+        all_custom = (set_custom_dimensions + set_custom_metrics).reject(&:empty?)
+        return '' if (all_custom.size < 1)
+        "ga('#{name}.set', {#{all_custom.join(', ')}});"
+      end
+
       def set_custom_dimensions
-        custom_dimensions.map do | index, value |
-          "ga('#{name}.set', 'dimension#{index}', '#{value}');"
-        end.join(' ')
+        [custom_dimensions.map do | index, value |
+          "'dimension#{index}': '#{value}'"
+        end.join(', ')]
       end
 
       def set_custom_metrics
-        custom_metrics.map do | index, value |
-          "ga('#{name}.set', 'metric#{index}', '#{value}');"
-        end.join(' ')
+        [custom_metrics.map do | index, value |
+          "'metric#{index}': '#{value}'"
+        end.join(', ')]
       end
 
       def set_transactions

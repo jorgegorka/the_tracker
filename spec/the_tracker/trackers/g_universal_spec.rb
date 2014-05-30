@@ -33,14 +33,22 @@ describe TheTracker::Trackers::GUniversal do
     describe :add_custom_dimension do
       it 'should add a custom dimension' do
         subject.add_custom_var(:dimension, 1, 'user')
-        subject.header.should include("ga('guniversal.set', 'dimension1', 'user');")
+        subject.header.should include("ga('guniversal.set', {'dimension1': 'user'});")
       end
     end
 
     describe :add_custom_metric do
       it 'should add a custom metric' do
         subject.add_custom_var(:metric, 1, 999.99)
-        subject.header.should include("ga('guniversal.set', 'metric1', '999.99');")
+        subject.header.should include("ga('guniversal.set', {'metric1': '999.99'});")
+      end
+    end
+
+    describe :add_both_custom do
+      it 'should add a custom metric and dimension' do
+        subject.add_custom_var(:dimension, 1, 'user')
+        subject.add_custom_var(:metric, 1, 999.99)
+        subject.header.should include("ga('guniversal.set', {'dimension1': 'user', 'metric1': '999.99'});")
       end
     end
 
