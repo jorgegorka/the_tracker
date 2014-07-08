@@ -117,11 +117,15 @@ The Tracker is released under the [MIT License](http://www.opensource.org/licens
 
 ## Log
 
+### Version 1.4.1
+
+Fixed bug where custom vars and metrics where persisted through different pages in Universal Analytics
+
 ### Version 1.4.0
 
 Smart 4 Ads support
 
-Universal analytics require libraries for demographic reports and enhanced link attribution 
+Universal analytics require libraries for demographic reports and enhanced link attribution
 
 ### Version 1.3.1
 

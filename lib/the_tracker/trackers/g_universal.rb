@@ -81,6 +81,8 @@ module TheTracker
       def set_custom_dimensions_and_metrics
         all_custom = (set_custom_dimensions + set_custom_metrics).reject(&:empty?)
         return '' if (all_custom.size < 1)
+        @custom_dimensions = {}
+        @custom_metrics = {}
         "ga('#{name}.set', {#{all_custom.join(', ')}});"
       end
 
